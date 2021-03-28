@@ -29,9 +29,25 @@ function App() {
  };
 
 
+ const onUpdateNote=(updatedNote)=>{
+    const updatedNotesArray=notes.map((note)=>{
+      if(note.id === activeNote){
+        return updatedNote;
+      }
+      return note;
+    });
+    setNotes(updatedNotesArray);
+ }
+
+
  const onDeleteNote=(idToDelete)=>{
    setNotes(notes.filter((note)=>note.id!==idToDelete));
- }
+ };
+
+
+ const getActiveNote=()=>{
+   return notes.find((note)=>note.id === activeNote);
+ };
 
 
 
@@ -39,7 +55,7 @@ function App() {
     <div className="App">
    
      <Sidebar notes={notes} onAddNote={onAddNote} onDeleteNote={onDeleteNote} activeNote={activeNote} setActiveNote={setActiveNote}/>
-     <Main/>
+     <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote}/>
      </div>
   );
 }
