@@ -1,9 +1,46 @@
 //import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
+import uuid from 'react-uuid';
+import Sidebar from './Sidebar';
+import Main from './Main';
+
 
 function App() {
+  const [notes,setNotes]=useState([]);
+
+  const [activeNote,setActiveNote]=useState(false);
+
+ const onAddNote=()=>{
+  const newNote={
+
+    id: uuid(),
+
+    title: "untitled Note",
+
+    body: "",
+
+    lastModified:Date.now(),
+
+  };
+
+  setNotes([newNote,...notes]);
+
+ };
+
+
+ const onDeleteNote=(idToDelete)=>{
+   setNotes(notes.filter((note)=>note.id!==idToDelete));
+ }
+
+
+
   return (
-     <header>Dphi Notes App</header>
+    <div className="App">
+   
+     <Sidebar notes={notes} onAddNote={onAddNote} onDeleteNote={onDeleteNote} activeNote={activeNote} setActiveNote={setActiveNote}/>
+     <Main/>
+     </div>
   );
 }
 
